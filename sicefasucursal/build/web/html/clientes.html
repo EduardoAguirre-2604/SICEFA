@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>CLIENTES</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofGJscQ+3NC6U2KxI1Z8l3blZl9OVAYMMd" crossorigin="anonymous">
+        <link href="../style/modal.css" rel="stylesheet" type="text/css"/>
+    </head>
+    <body onload="cargarCatalogoClientes();">
+        <header>
+            <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #f3364c">
+                <a class="navbar-brand" href="../Principal_Sucursal.html"><img src="../img/icono_1.png" alt="" width="64" height="51"/></a>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item active" style="padding-left: 20px">
+                            <a class="nav-link" href="empleado.html" onclick=""><i style="color: white" class="bi bi-person-circle modulos"></i>
+                                <label style="color: white" class="etiqueta">Empleados</label><span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item active" style="padding-left: 20px">
+                            <a class="nav-link" href="clientes.html" onclick=""><i style="color: white"class="bi bi-people-fill"></i></i>
+                                <label style="color: white"class="etiqueta">Clientes</label><span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item active" style="padding-left: 20px">
+                            <a class="nav-link" href="consulta_productos.html" onclick=""><i style="color: white"class="bi bi-clipboard-check-fill"></i>
+                                <label style="color: white" class="etiqueta">Consulta de Productos</label><span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item active" style="padding-left: 20px">
+                            <a class="nav-link" href="#" onclick=""><i style="color: white" class="bi bi-cart4"></i>
+                                <label style="color: white"class="etiqueta">Ventas</label><span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item active" style="padding-left: 20px">
+                            <a class="nav-link" href="#" onclick=""><i style="color: white"class="bi bi-list-stars"></i>
+                                <label style="color: white"class="etiqueta">Pedidos de Compra</label><span class="sr-only">(current)</span></a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <section>
+            <h2 style="text-align: center" class=" bg-primary text-white p-2">Módulo Cliente</h2>
+            <br>
+           
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-5">
+                        
+                        
+                        
+                        
+                    </div>
+                    <div class="col-md-12">
+                        <div class="container-fluid">
+                            <div class="table-responsive">
+                                <div class="container-fluid">
+                                    <div style="float: left">
+                                        <button class="btn btn-primary" type="button" onclick="">Buscar</button>
+                                        <input type="text" id="campoBusqueda" name="buscar" oninput="buscar()">            
+                                    </div>
+                                    <div  style="float: right">
+
+                                    <label class="content-input">
+                                        <input type="checkbox" name="Vehiculo" id="autopista" value="autopista" onchange="cargarCatalogoClientes()">Inactivos
+                                        <i></i>
+                                    </label>
+                                </div>
+                                    <button style="margin-left: 67%" type="button" class="btn btn-success btn-md font-weight-bold font-italic" data-toggle="modal" data-target="#myModal"><i class="bi bi-card-checklist"></i>  Registrar</button>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-hover">
+                                            <thead class="thead-dark">
+                                                <tr>
+                                                    <th scope="col">Datos Personales</th>
+                                                    <th scope="col">Datos Fiscales</th>
+                                                    <th scope="col">Direccion</th>
+                                                    <th scope="col">Telefono</th>
+                                                    <th scope="col">Correo Electronico</th>
+                                                    <th scope="col">Fecha De Registro</th>
+                                                    <th></th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="catalogoClientes">
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <br>
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@8.2.0/dist/polyfill.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.all.min.js"></script>
+        <script src="../js/cliente.js" type="text/javascript"></script>
+        <!-- Modal -->
+        <div class="modal fade" id="myModalEx" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Formulario Cliente</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <form class="border">
+                            <div class="col-md-12">
+                                <div class="container mt-4">
+                                    <h5 style="text-align: center;" class="alert alert-warning">Datos Personales:</h5>
+                                    <div class="row mt-3">
+                                        <div class="col-md-12">
+                                            <label for="nombres">Nombre(s):</label>
+                                            <input type="text" class="form-control" id="nombres">
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-md-6">
+                                            <label for="apellido_paterno">Apellido Paterno:</label>
+                                            <input type="text" class="form-control" id="apellido_paterno">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="apellido_materno">Apellido Materno:</label>
+                                            <input type="text" class="form-control" id="apellido_materno">
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-md-6">
+                                            <label for="genero">Género:</label><br>
+                                            <select class="form-control" id="genero" name="genero">
+                                                <option  value="Masculino">Masculino</option>
+                                                <option  value="Femenino">Femenino</option>
+                                                <option  value="Otro">Otro</option>
+                                            </select><br>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="fecha_nacimiento">Fecha Nacimiento:</label>
+                                            <input type="date" class="form-control" id="fecha_nacimiento">
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-md-6">
+                                            <label for="rfc">RFC:</label>
+                                            <input type="text" class="form-control" id="rfc">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="curp">CURP:</label>
+                                            <input type="text" class="form-control" id="curp">
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-md-12">
+                                            <div class ="sidebar ms-2 text-center pb-2" style="width:186px; border-color: green">
+                                                <div class="row mt-2">
+                                                    <div class="col-12">
+                                                        <img id="imgFoto" src="" style="width: 156px; height: 156px;"/></img>
+                                                        <textarea id="textoFoto" style="width: 156px;"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="row mt-2">
+                                                    <div class="col-12">
+                                                        <button type="button" id="btnSeleccionarImagen" class="btn btn-outline-success" onclick="cargarImagen()">
+                                                            <i class="bi bi-upload"></i>&nbsp;&nbsp;Cargar Imagen
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div class="row mt-2">
+                                                    <div class="col-12">
+                                                        <input id="inputFoto" type="file"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-md-6">
+                                            <label for="direccion">Domilicio:</label>
+                                            <input type="text" class="form-control" id="domicilio">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="codigo_postal">C.P.</label>
+                                            <input type="text" class="form-control" id="codigo_postal">
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-md-6">
+                                            <label for="ciudad">Ciudad:</label>
+                                            <input type="text" class="form-control" id="ciudad"> 
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="estado">Estado:</label>
+                                            <select class="form-control" id="estado" name="estado">
+                                                <option value="" disabled selected>Selecciona el estado</option>
+                                                <option value="Aguascalientes">Aguascalientes</option>
+                                                <option value="Baja California">Baja California</option>
+                                                <option value="Baja California Sur">Baja California Sur</option>
+                                                <option value="Campeche">Campeche</option>
+                                                <option value="Chiapas">Chiapas</option>
+                                                <option value="Chihuahua">Chihuahua</option>
+                                                <option value="Ciudad de México">Ciudad de México</option>
+                                                <option value="Coahuila">Coahuila</option>
+                                                <option value="Colima">Colima</option>
+                                                <option value="Durango">Durango</option>
+                                                <option value="Estado de México">Estado de México</option>
+                                                <option value="Guanajuato">Guanajuato</option>
+                                                <option value="Guerrero">Guerrero</option>
+                                                <option value="Hidalgo">Hidalgo</option>
+                                                <option value="Jalisco">Jalisco</option>
+                                                <option value="Michoacán">Michoacán</option>
+                                                <option value="Morelos">Morelos</option>
+                                                <option value="Nayarit">Nayarit</option>
+                                                <option value="Nuevo León">Nuevo León</option>
+                                                <option value="Oaxaca">Oaxaca</option>
+                                                <option value="Puebla">Puebla</option>
+                                                <option value="Querétaro">Querétaro</option>
+                                                <option value="Quintana Roo">Quintana Roo</option>
+                                                <option value="San Luis Potosí">San Luis Potosí</option>
+                                                <option value="Sinaloa">Sinaloa</option>
+                                                <option value="Sonora">Sonora</option>
+                                                <option value="Tabasco">Tabasco</option>
+                                                <option value="Tamaulipas">Tamaulipas</option>
+                                                <option value="Tlaxcala">Tlaxcala</option>
+                                                <option value="Veracruz">Veracruz</option>
+                                                <option value="Yucatán">Yucatán</option>
+                                                <option value="Zacatecas">Zacatecas</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-md-6">
+                                            <label for="telefono">Teléfono:</label>
+                                            <input type="tel" class="form-control" id="telefono">
+                                            <br>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="email">Email:</label>
+                                            <input type="text" class="form-control" id="email">
+                                        </div>
+                                    </div>
+                                    <h5 style="text-align: center;" class="alert alert-warning">Datos de Cliente:</h5>
+                                    <div class="row mt-3">
+                                        <div class="col-md-6">
+                                            <label for="codigoEmpleado">Id Cliente:</label>
+                                            <input type="text" class="form-control" id="idCliente" disabled="">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="nombres">Id Persona:</label>
+                                            <input type="text" class="form-control" id="txtIdPersona" disabled="">
+                                            <br>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-md-6">
+                                            <label for="fechaRegistro">Fecha Registro:</label>
+                                            <input type="date" class="form-control" id="fechaRegistro">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="estatus">Estatus:</label>
+                                            <select class="form-control" id="esstatus" name="estatus">
+                                                <option value="1">Activo</option>
+                                                <option value="0">Inactivo</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <center>
+                                    <ul class="list-inline text-center">
+                                        <li class="list-inline-item">
+                                            <button type="reset" class="btn btn-primary btn-md font-weight-bold font-italic" onclick=""><i class="bi bi-bootstrap-reboot"></i> Limpiar</button>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <button type="button" class="btn btn-warning btn-md font-weight-bold font-italic" onclick="actualizarDatos()"><i class='bi bi-pencil-square fa-lg'></i> Modificar </button> 
+                                        </li>
+                                    </ul>
+                                </center>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Formulario Cliente</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <form class="border">
+                            <div class="col-md-12">
+                                <div class="container mt-4">
+                                    <h5 style="text-align: center;" class="alert alert-warning">Datos Personales:</h5>
+                                    <div class="row mt-3">
+                                        <div class="col-md-12">
+                                            <label for="nombres">Nombre(s):</label>
+                                            <input type="text" class="form-control" id="nombres">
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-md-6">
+                                            <label for="apellido_paterno">Apellido Paterno:</label>
+                                            <input type="text" class="form-control" id="apellido_paterno">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="apellido_materno">Apellido Materno:</label>
+                                            <input type="text" class="form-control" id="apellido_materno">
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-md-6">
+                                            <label for="genero">Género:</label><br>
+                                            <select class="form-control" id="genero" name="genero">
+                                                <option  value="Masculino">Masculino</option>
+                                                <option  value="Femenino">Femenino</option>
+                                                <option  value="Otro">Otro</option>
+                                            </select><br>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="fecha_nacimiento">Fecha Nacimiento:</label>
+                                            <input type="date" class="form-control" id="fecha_nacimiento">
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-md-6">
+                                            <label for="rfc">RFC:</label>
+                                            <input type="text" class="form-control" id="rfc">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="curp">CURP:</label>
+                                            <input type="text" class="form-control" id="curp">
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-md-12">
+                                            <div class ="sidebar ms-2 text-center pb-2" style="width:186px; border-color: green">
+                                                <div class="row mt-2">
+                                                    <div class="col-12">
+                                                        <img id="imgFoto" src="" style="width: 156px; height: 156px;"/></img>
+                                                        <textarea id="textoFoto" style="width: 156px;"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="row mt-2">
+                                                    <div class="col-12">
+                                                        <button type="button" id="btnSeleccionarImagen" class="btn btn-outline-success" onclick="cargarImagen()">
+                                                            <i class="bi bi-upload"></i>&nbsp;&nbsp;Cargar Imagen
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div class="row mt-2">
+                                                    <div class="col-12">
+                                                        <input id="inputFoto" type="file"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-md-6">
+                                            <label for="direccion">Domilicio:</label>
+                                            <input type="text" class="form-control" id="domicilio">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="codigo_postal">C.P.</label>
+                                            <input type="text" class="form-control" id="codigo_postal">
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-md-6">
+                                            <label for="ciudad">Ciudad:</label>
+                                            <input type="text" class="form-control" id="ciudad"> 
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="estado">Estado:</label>
+                                            <select class="form-control" id="estado" name="estado">
+                                                <option value="" disabled selected>Selecciona el estado</option>
+                                                <option value="Aguascalientes">Aguascalientes</option>
+                                                <option value="Baja California">Baja California</option>
+                                                <option value="Baja California Sur">Baja California Sur</option>
+                                                <option value="Campeche">Campeche</option>
+                                                <option value="Chiapas">Chiapas</option>
+                                                <option value="Chihuahua">Chihuahua</option>
+                                                <option value="Ciudad de México">Ciudad de México</option>
+                                                <option value="Coahuila">Coahuila</option>
+                                                <option value="Colima">Colima</option>
+                                                <option value="Durango">Durango</option>
+                                                <option value="Estado de México">Estado de México</option>
+                                                <option value="Guanajuato">Guanajuato</option>
+                                                <option value="Guerrero">Guerrero</option>
+                                                <option value="Hidalgo">Hidalgo</option>
+                                                <option value="Jalisco">Jalisco</option>
+                                                <option value="Michoacán">Michoacán</option>
+                                                <option value="Morelos">Morelos</option>
+                                                <option value="Nayarit">Nayarit</option>
+                                                <option value="Nuevo León">Nuevo León</option>
+                                                <option value="Oaxaca">Oaxaca</option>
+                                                <option value="Puebla">Puebla</option>
+                                                <option value="Querétaro">Querétaro</option>
+                                                <option value="Quintana Roo">Quintana Roo</option>
+                                                <option value="San Luis Potosí">San Luis Potosí</option>
+                                                <option value="Sinaloa">Sinaloa</option>
+                                                <option value="Sonora">Sonora</option>
+                                                <option value="Tabasco">Tabasco</option>
+                                                <option value="Tamaulipas">Tamaulipas</option>
+                                                <option value="Tlaxcala">Tlaxcala</option>
+                                                <option value="Veracruz">Veracruz</option>
+                                                <option value="Yucatán">Yucatán</option>
+                                                <option value="Zacatecas">Zacatecas</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-md-6">
+                                            <label for="telefono">Teléfono:</label>
+                                            <input type="tel" class="form-control" id="telefono">
+                                            <br>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="email">Email:</label>
+                                            <input type="text" class="form-control" id="email">
+                                        </div>
+                                    </div>
+                                    <h5 style="text-align: center;" class="alert alert-warning">Datos de Cliente:</h5>
+                                    <div class="row mt-3">
+                                        <div class="col-md-6">
+                                            <label for="codigoEmpleado">Id Cliente:</label>
+                                            <input type="text" class="form-control" id="idCliente" disabled="">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="nombres">Id Persona:</label>
+                                            <input type="text" class="form-control" id="txtIdPersona" disabled="">
+                                            <br>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-md-6">
+                                            <label for="fechaRegistro">Fecha Registro:</label>
+                                            <input type="date" class="form-control" id="fechaRegistro">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="estatus">Estatus:</label>
+                                            <select class="form-control" id="esstatus" name="estatus">
+                                                <option value="1">Activo</option>
+                                                <option value="0">Inactivo</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <center>
+                                    <ul class="list-inline text-center">
+                                        <li class="list-inline-item">
+                                            <button type="reset" class="btn btn-primary btn-md font-weight-bold font-italic" onclick=""><i class="bi bi-bootstrap-reboot"></i> Limpiar</button>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <button type="button" class="btn btn-success btn-md font-weight-bold font-italic" onclick="obtenerDatosCliente()"><i class="bi bi-card-checklist"></i> Registrar </button>
+                                        </li>
+                                    </ul>
+                                </center>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </body>
+</html>

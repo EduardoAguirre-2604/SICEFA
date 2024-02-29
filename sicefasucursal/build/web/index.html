@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Página Principal</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.css">
+        <style>
+            body {
+                display: flex;
+                flex-direction: column;
+                min-height: 100vh;
+                margin: 0;
+            }
+
+            header {
+                background-color: #EF3341;
+                color: #ffffff;
+                padding: 20px;
+                text-align: center;
+                position: sticky;
+                top: 0;
+                z-index: 1000;
+            }
+
+            #carouselExample {
+                width: 100%;
+                max-width: 850px;
+                margin: 20px auto;
+            }
+
+            .carousel-inner {
+                text-align: left;
+                background-color: #ffffff;
+                color: #000000;
+                padding: 20px;
+            }
+
+            .carousel-caption {
+                position: static;
+                text-align: center;
+                color: #000000;
+            }
+
+            footer {
+                background-color: #EF3341;
+                color: #ffffff;
+                padding: 20px;
+                text-align: center;
+                margin-top: auto;
+            }
+
+            .navbar-brand,
+            .navbar-nav .nav-link {
+                color: #ffffff;
+                font-size: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <header class="navbar navbar-expand-lg navbar-light">
+            <!-- ... Contenido del encabezado ... -->
+            <div class="container-fluid">
+                <img src="img/logo_1.jpeg" width="30px" height="30px" alt="alt"/>
+                <h5 style="padding-left: 200px">BIENVENIDO</h5>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <button type="button" class="btn btn-primary">
+                                <a class="nav-link" href="login.html" style="color: white">Iniciar sesion</a>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </header>
+
+        <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active" style="text-align: center; margin-top: 50px; margin-bottom: 30px">
+                    <img src="img/logo_1.jpeg"  alt="Imagen 1" >
+                    <div class="carousel-caption" style="color: #015A71; height: 220px; margin-bottom: 50px">
+                        <h2>SICEFA</h2>
+                        <p><strong>
+                                SICEFA, que corresponde a Sistema Integral para el Control y Evaluación de Farmacias, 
+                                es una herramienta tecnológica fundamental adoptada por Medicamos tu Vida S.A. Facilita el control y 
+                                la coordinación eficientes entre la matriz y 
+                                las tres sucursales ubicadas estratégicamente en León Guanajuato. SICEFA optimiza la administración
+                                del inventario, permitiendo una operación 
+                                más ágil y coordinada, y contribuye significativamente al éxito continuo de Medicamos tu Vida S.A. en 
+                                el dinámico mercado farmacéutico estatal.
+                            </strong></p>
+                    </div>
+                </div>
+                <div class="carousel-item" style="text-align: center;">
+                    <img src="img/medicamentos.jpg" class="d-block w-100" alt="Imagen 2">
+                    <div class="carousel-caption" style="color: #015A71; height: 130px; margin-bottom: 10px">
+                        <h2>Misión</h2>
+                        <p><strong>
+                                La misión principal de nuestra compañía farmacéutica es contribuir a mejorar la salud y calidad de vida de las personas mediante la investigación, desarrollo y comercialización de medicamentos seguros y efectivos.
+                            </strong></p>
+                    </div>
+                </div>
+                <div class="carousel-item" style="text-align: center;">
+                    <img src="img/farmacia.jpg" class="d-block w-100" alt="Imagen 3">
+                    <div class="carousel-caption" style="color: #015A71; height: 100px;">
+                        <h2>Visión</h2>
+                        <p><strong>
+                                Como nos vemos en un futuro es llegar a un alto nivel de innovación y desarrollo científico, nuestra compañía farmacéutica suele valorar la innovación y el desarrollo científico como pilares fundamentales. Nos esforzaremos por descubrir nuevos medicamentos y tratamientos que aborden enfermedades y den una cura a estas.
+                            </strong></p>
+                    </div>
+                </div>
+                <div class="carousel-item" style="text-align: center;">
+                    <img src="img/farmaceutica.jpg" class="d-block w-100" alt="Imagen 4">
+                    <div class="carousel-caption" style="color: #015A71; height: 100px;">
+                        <h2>Valores</h2>
+                        <p><strong>
+                                Responsabilidad y ética, la ética es un valor esencial en esta industria debemos mantener altos estándares éticos en todas nuestras actividades, desde la investigación clínica hasta la comercialización de productos. La seguridad del paciente y la transparencia en la divulgación de información son especialmente importantes. Colaboración y asociaciones, nuestra farmacéutica suele colaborar con otras empresas, instituciones académicas, investigadores y profesionales de la salud para impulsar la innovación y el conocimiento científico.
+                            </strong></p>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+
+        <footer>
+            <p>SISTEMA CENTRAL DE FARMACIAS.</p>
+        </footer>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.all.min.js"></script>
+    </body>
+</html>

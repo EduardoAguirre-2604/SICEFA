@@ -1,0 +1,407 @@
+<html>
+    <head>
+        <title>SUCURSAL</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofGJscQ+3NC6U2KxI1Z8l3blZl9OVAYMMd" crossorigin="anonymous">
+        <link href="../style/styleModalSuc.css" rel="stylesheet" type="text/css"/> 
+    </head>
+    <link href="../styleLogin/styleModalSuc.css" rel="stylesheet" type="text/css"/>
+    <body onload="cargarSucursales();">
+        <header>
+            <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #F52329; ">
+                <a class="navbar-brand" href="../Principal_Central.html"><img src="../img/icono_1.png" alt="" width="64" height="51"/></a>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item active" style="padding-left: 20px; color: white ">
+                            <a class="nav-link" href="consulta_pedidos.html" onclick=""><i style="color: white" class="bi bi-building-check"></i>
+                                <label class="etiqueta" style="color: white">Pedidos</label><span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item active" style="padding-left: 20px; color: white">
+                            <a class="nav-link" href="sucursal.html" onclick=""><i style="color: white" class="bi bi-buildings"></i>
+                                <label class="etiqueta" style="color: white">Sucursales</label><span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item active" style="padding-left: 20px; color: white">
+                            <a class="nav-link" href="productos.html" onclick=""><i style="color: white" class="bi bi-capsule"></i>
+                                <label class="etiqueta" style="color: white">Productos</label><span class="sr-only">(current)</span></a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <section>
+
+            <h2 style="text-align: center;" class="bg-primary text-white p-2 mt-0">Módulo Sucursal</h2>
+
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-5">
+
+                        <div class="col-12">
+
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="container-fluid">
+                            <div class="table-responsive">
+                                <div class="container-fluid">
+                                    <div class="container-fluid">
+                                    </div>
+                                    <div class="form-check form-switch" style="float: right">
+                                        <label class="content-input">
+                                            <input type="checkbox" name="Vehiculo" id="chkestatusp" value="autopista" onchange="cargarSucursales();">Inactivos
+                                            <i></i>
+                                        </label>
+                                    </div>
+                                    <button class="btn btn-primary" type="button" onclick="">Buscar</button>
+                                    <input type="text" id="busqueda" name="buscar" oninput="buscarSucursales()">
+                                            <a href="mapasSucursales.html"><button style="margin-left: 51%;" id="abrirModal" type="button" class="btn btn-warning bi bi-calendar-event-fill" > Conoce nuestras sucursales</button></a>
+                                    <button class="btn btn-success btn-md font-weight-bold font-italic" style="text-align: center; right: 200px" data-toggle="modal" data-target="#modificar"><i class="bi bi-card-checklist"></i> Agregar</button>
+                                    
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-hover">
+                                            <thead class="thead-dark">
+                                                <tr>
+                                                    <th scope="col">Nombre de la sucursal</th>
+                                                    <th scope="col">Nombre del titular</th>
+                                                    <th scope="col">RFC</th>
+                                                    <th scope="col">Domicilio</th>
+                                                    <th scope="col">Colonia</th>
+                                                    <th scope="col">Codigo Postal</th>
+                                                    <th scope="col">Ciudad</th>
+                                                    <th scope="col">estado</th>
+                                                    <th scope="col">telefono</th>
+                                                    <th scope="col">latitud</th>
+                                                    <th scope="col">Longitud</th>
+                                                    <th></th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tblSucursal">
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>  
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modificar y eliminar sucursal</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="border">
+                            <!-- ... (contenido del formulario) ... -->
+                            <form class="border">
+                                <div class="col-md-12">
+                                    <div class="container mt-4">
+                                        <h5 style="text-align: center;" class="alert alert-warning">Datos Sucursal</h5>
+                                        <div class="row mt-3">
+                                            <div class="col-md-12">
+                                                <label for="nombreSucursal">Nombre:</label>
+                                                <input type="text" class="form-control" id="nombreSucursal">
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="col-md-6">
+                                                <label for="nombreTitular">Nombre titular:</label>
+                                                <input type="text" class="form-control" id="nombreTitular">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="rfc">RFC del Titular:</label>
+                                                <input type="text" class="form-control" id="rfc">
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="col-md-6">
+                                                <label for="domicilio">Domicilio: </label>
+                                                <input type="text" class="form-control" id="domicilio">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="colonia">Colonia: </label>
+                                                <input type="text" class="form-control" id="colonia">
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="col-md-6">
+                                                <label for="codgigoPostal">Codigo Postal:</label>
+                                                <input type="text" class="form-control" id="codigoPostal">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="ciudad">ciudad:</label>
+                                                <input type="text" class="form-control" id="ciudad">
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="col-md-6">
+                                                <label for="estado">Estado: </label>
+                                                <select class="form-control" id="estado" name="estado">
+                                                    <option value="" disabled selected>Selecciona el estado</option>
+                                                    <option value="Aguascalientes">Aguascalientes</option>
+                                                    <option value="Baja California">Baja California</option>
+                                                    <option value="Baja California Sur">Baja California Sur</option>
+                                                    <option value="Campeche">Campeche</option>
+                                                    <option value="Chiapas">Chiapas</option>
+                                                    <option value="Chihuahua">Chihuahua</option>
+                                                    <option value="Ciudad de México">Ciudad de México</option>
+                                                    <option value="Coahuila">Coahuila</option>
+                                                    <option value="Colima">Colima</option>
+                                                    <option value="Durango">Durango</option>
+                                                    <option value="Estado de México">Estado de México</option>
+                                                    <option value="Guanajuato">Guanajuato</option>
+                                                    <option value="Guerrero">Guerrero</option>
+                                                    <option value="Hidalgo">Hidalgo</option>
+                                                    <option value="Jalisco">Jalisco</option>
+                                                    <option value="Michoacán">Michoacán</option>
+                                                    <option value="Morelos">Morelos</option>
+                                                    <option value="Nayarit">Nayarit</option>
+                                                    <option value="Nuevo León">Nuevo León</option>
+                                                    <option value="Oaxaca">Oaxaca</option>
+                                                    <option value="Puebla">Puebla</option>
+                                                    <option value="Querétaro">Querétaro</option>
+                                                    <option value="Quintana Roo">Quintana Roo</option>
+                                                    <option value="San Luis Potosí">San Luis Potosí</option>
+                                                    <option value="Sinaloa">Sinaloa</option>
+                                                    <option value="Sonora">Sonora</option>
+                                                    <option value="Tabasco">Tabasco</option>
+                                                    <option value="Tamaulipas">Tamaulipas</option>
+                                                    <option value="Tlaxcala">Tlaxcala</option>
+                                                    <option value="Veracruz">Veracruz</option>
+                                                    <option value="Yucatán">Yucatán</option>
+                                                    <option value="Zacatecas">Zacatecas</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="telefono">Telefono: </label>
+                                                <input type="text" class="form-control" id="telefono"><br>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="col-md-6">
+                                                <label for="latitud">Latitud:</label>
+                                                <input type="text" class="form-control" id="latitud">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="latitud">Longitud:</label>
+                                                <input type="text" class="form-control" id="longitud">
+                                            </div>
+                                        </div>      
+                                        <div class="row mt-3">
+                                            <div class="col-md-6">
+                                                <label for="estatus">Estatus:</label><br>
+                                                <select class="form-control" id="estatus" name="estatus">
+                                                    <option value="1">Activo</option>
+                                                    <option value="0">Inactivo</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="idSucursal">IdSucursal:</label>
+                                                <input type="text" class="form-control" id="idSucursal" readonly="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <center>
+                                        <ul class="list-inline text-center">
+                                            <li class="list-inline-item">
+                                                <button type="reset" class="btn btn-primary btn-md font-weight-bold font-italic" onclick=""><i class="bi bi-bootstrap-reboot"></i> Limpiar</button>
+                                            </li>
+
+                                            <li class="list-inline-item">
+                                                <button type="button" class="btn btn-warning btn-md font-weight-bold font-italic" onclick="modificarSucursal();"><i class="bi bi-card-checklist"></i> Modificar </button>
+
+                                            </li>
+
+                                        </ul>
+
+                                    </center>
+                                </div>
+                            </form>
+
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <!-- Modal -->
+        <div class="modal fade" id="modificar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Agregar nueva Sucursal</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="border">
+                            <!-- ... (contenido del formulario) ... -->
+                            <form class="border">
+                                <div class="col-md-12">
+                                    <div class="container mt-4">
+                                        <h5 style="text-align: center;" class="alert alert-warning">Datos Sucursal</h5>
+                                        <div class="row mt-3">
+                                            <div class="col-md-12">
+                                                <label for="nombreSucursal">Nombre:</label>
+                                                <input type="text" class="form-control" id="nombreSucursalAgregar">
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="col-md-6">
+                                                <label for="nombreTitular">Nombre titular:</label>
+                                                <input type="text" class="form-control" id="nombreTitularAgregar">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="rfc">RFC del Titular:</label>
+                                                <input type="text" class="form-control" id="rfcAgregar">
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="col-md-6">
+                                                <label for="domicilio">Domicilio: </label>
+                                                <input type="text" class="form-control" id="domicilioAgregar">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="colonia">Colonia: </label>
+                                                <input type="text" class="form-control" id="coloniaAgregar">
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="col-md-6">
+                                                <label for="codgigoPostal">Codigo Postal:</label>
+                                                <input type="text" class="form-control" id="codigoPostalAgregar">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="ciudad">ciudad:</label>
+                                                <input type="text" class="form-control" id="ciudadAgregar">
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="col-md-6">
+                                                <label for="estado">Estado: </label>
+                                                <select class="form-control" id="estadoAgregar" name="estado">
+                                                    <option value="" disabled selected>Selecciona el estado</option>
+                                                    <option value="Aguascalientes">Aguascalientes</option>
+                                                    <option value="Baja California">Baja California</option>
+                                                    <option value="Baja California Sur">Baja California Sur</option>
+                                                    <option value="Campeche">Campeche</option>
+                                                    <option value="Chiapas">Chiapas</option>
+                                                    <option value="Chihuahua">Chihuahua</option>
+                                                    <option value="Ciudad de México">Ciudad de México</option>
+                                                    <option value="Coahuila">Coahuila</option>
+                                                    <option value="Colima">Colima</option>
+                                                    <option value="Durango">Durango</option>
+                                                    <option value="Estado de México">Estado de México</option>
+                                                    <option value="Guanajuato">Guanajuato</option>
+                                                    <option value="Guerrero">Guerrero</option>
+                                                    <option value="Hidalgo">Hidalgo</option>
+                                                    <option value="Jalisco">Jalisco</option>
+                                                    <option value="Michoacán">Michoacán</option>
+                                                    <option value="Morelos">Morelos</option>
+                                                    <option value="Nayarit">Nayarit</option>
+                                                    <option value="Nuevo León">Nuevo León</option>
+                                                    <option value="Oaxaca">Oaxaca</option>
+                                                    <option value="Puebla">Puebla</option>
+                                                    <option value="Querétaro">Querétaro</option>
+                                                    <option value="Quintana Roo">Quintana Roo</option>
+                                                    <option value="San Luis Potosí">San Luis Potosí</option>
+                                                    <option value="Sinaloa">Sinaloa</option>
+                                                    <option value="Sonora">Sonora</option>
+                                                    <option value="Tabasco">Tabasco</option>
+                                                    <option value="Tamaulipas">Tamaulipas</option>
+                                                    <option value="Tlaxcala">Tlaxcala</option>
+                                                    <option value="Veracruz">Veracruz</option>
+                                                    <option value="Yucatán">Yucatán</option>
+                                                    <option value="Zacatecas">Zacatecas</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="telefono">Telefono: </label>
+                                                <input type="text" class="form-control" id="telefonoAgregar"><br>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="col-md-6">
+                                                <label for="latitud">Latitud:</label>
+                                                <input type="text" class="form-control" id="latitudAgregar">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="latitud">Longitud:</label>
+                                                <input type="text" class="form-control" id="longitudAgregar">
+                                            </div>
+                                        </div>      
+                                        <div class="row mt-3">
+                                            <div class="col-md-6">
+                                                <label for="estatus">Estatus:</label><br>
+                                                <select class="form-control" id="estatusAgregar" name="estatus">
+                                                    <option value="1">Activo</option>
+                                                    <option value="0">Inactivo</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="idSucursal">IdSucursal:</label>
+                                                <input type="text" class="form-control" id="idSucursalAgregar" readonly="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <center>
+                                        <ul class="list-inline text-center">
+                                            <li class="list-inline-item">
+                                                <button type="reset" class="btn btn-primary btn-md font-weight-bold font-italic" onclick=""><i class="bi bi-bootstrap-reboot"></i> Limpiar</button>
+                                            </li>
+
+                                            <li class="list-inline-item">
+                                                <button type="button" class="btn btn-success btn-md font-weight-bold font-italic" onclick="insertarSucursal();"><i class="bi bi-card-checklist"></i> Agregar</button>
+
+                                            </li>
+
+                                        </ul>
+
+                                    </center>
+                                </div>
+                            </form>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@8.2.0/dist/polyfill.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.all.min.js"></script>
+    <script src="../js/Sucursal.js" type="text/javascript"></script>
+    <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-core.js"></script>
+    <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-service.js"></script>
+    <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-ui.js"></script>
+    <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-mapevents.js"></script>
+</body>
+</html>
